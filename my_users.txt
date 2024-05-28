@@ -1,0 +1,9 @@
+testowy_e-mail@test.pl; Password123!; Adam; Testowy; 10; 4; 1990
+shaun.rippin@gmail.com; iv9yo5i4nvpbzu9; Dwayne; Schneider; 10; 4; 1990
+jennine.mohr@hotmail.com; yevzzrzzlm5m; Diego; Fritsch; 1; 1; 1900
+dede.lockman@gmail.com; ne9h68gajb1y4p1; Jimmie; Abshire; 1; 1; 1900
+clint.rice@hotmail.com; 396p2se7mla0; Art; Beier; 1; 1; 1900
+mauricio.franecki@yahoo.com; mzkrws0lc; Damion; Zboncak; 29; 1; 2001
+emelina.daugherty@gmail.com; l76fetylqz; Bryan; Pagac; 23; 3; 1953
+maynard.rath@yahoo.com; ihs4ev7kfo; Cherryl; Reichert; 25; 6; 1932
+minh.veum@yahoo.com; zijmtm30; Marin; Thompson; 5; 5; 1999
