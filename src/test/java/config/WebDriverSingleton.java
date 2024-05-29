@@ -6,16 +6,14 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public abstract class WebDriverSingleton {
 
-    // Ta klasa pilnuje, aby był uruchomiony tylko 1 WebDriver
-
     private static WebDriver driver;
 
     private WebDriverSingleton() {
     }
 
-    public static WebDriver getInstance() { // pozwala na pobranie instancji drivera
+    public static WebDriver getInstance() {
         if (driver == null) {
-            WebDriverManager.chromedriver().setup(); // WebDriverManager zawiera też drivery innych przeglądarek
+            WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver();
         }
         return driver;

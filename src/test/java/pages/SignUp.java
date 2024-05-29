@@ -77,9 +77,9 @@ public class SignUp extends BasePage {
     private void fillInRegistrationForm(boolean validForm) {
         gendersRadioButtons.get(new Random().nextInt(gendersRadioButtons.size())).click();
         if (validForm) {
-            customerFirstnameInput.sendKeys(faker.getFakeFirstname());
+            customerFirstnameInput.sendKeys(faker.getFakeFirstName());
         }
-        customerLastnameInput.sendKeys(faker.getFakeLastname());
+        customerLastnameInput.sendKeys(faker.getFakeLastName());
         passwordInput.sendKeys(faker.getFakePassword());
         Date fakeDate = faker.getFakeDateOfBirthday();
         new Select(birthdayDaySelect).selectByValue(String.valueOf(fakeDate.getDate()));
@@ -130,7 +130,7 @@ public class SignUp extends BasePage {
                     new Select(birthdayDaySelect).getFirstSelectedOption().getAttribute("value") + "; " +
                     new Select(birthdayMonthSelect).getFirstSelectedOption().getAttribute("value") + "; " +
                     new Select(birthdayYearSelect).getFirstSelectedOption().getAttribute("value") + "\n");
-            // dodać zapisywanie płci i czy newsletter
+            // implement saving gender and newsletter
             out.close();
             file.close();
         } catch (IOException e) {

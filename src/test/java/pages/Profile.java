@@ -1,8 +1,8 @@
 package pages;
 
-import org.testng.Assert;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.testng.Assert;
 import ru.yandex.qatools.allure.annotations.Step;
 
 public class Profile extends BasePage {

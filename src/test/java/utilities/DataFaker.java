@@ -13,11 +13,11 @@ public class DataFaker {
         faker = new Faker();
     }
 
-    public String getFakeFirstname() {
+    public String getFakeFirstName() {
         return faker.name().firstName();
     }
 
-    public String getFakeLastname() {
+    public String getFakeLastName() {
         return faker.name().lastName();
     }
 
