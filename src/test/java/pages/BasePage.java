@@ -16,4 +16,5 @@ public abstract class BasePage {
 
     @FindBy(id = "columns")
     private WebElement pageContent;
+
 }

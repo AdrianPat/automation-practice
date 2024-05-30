@@ -11,11 +11,11 @@ import utilities.DataFaker;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import static utilities.AlertMessageContent.getAlertContent;
 import static utilities.Screenshots.captureScreenshot;
 
 public class SignUp extends BasePage {
@@ -27,10 +27,10 @@ public class SignUp extends BasePage {
     private final DataFaker faker = new DataFaker();
 
     @FindBy(id = "customer_firstname")
-    private WebElement customerFirstnameInput;
+    private WebElement customerFirstNameInput;
 
     @FindBy(id = "customer_lastname")
-    private WebElement customerLastnameInput;
+    private WebElement customerLastNameInput;
 
     @FindBy(id = "email")
     private WebElement emailInput;
@@ -50,36 +50,21 @@ public class SignUp extends BasePage {
     @FindBy(id = "uniform-newsletter")
     private WebElement newsletterCheckbox;
 
-    /* @FindBy(id = "address1")
-    private WebElement addressLineInput;
-
-    @FindBy(id = "city")
-    private WebElement cityInput;
-
-    @FindBy(id = "id_state")
-    private WebElement stateSelect;
-
-    @FindBy(id = "postcode")
-    private WebElement zipCodeInput;
-
-    @FindBy(id = "phone_mobile")
-    private WebElement phoneNumberInput; */
-
     @FindBy(id = "submitAccount")
-    private WebElement submitFormButton;
+    private WebElement registrationButton;
 
     @FindBy(css = "#center_column > .alert li")
-    private List<WebElement> alertMessageContent;
+    private List<WebElement> errorAlerts;
 
     @FindBy(css = "[type=\"radio\"]")
     private List<WebElement> gendersRadioButtons;
 
-    private void fillInRegistrationForm(boolean validForm) {
+    /*  REGISTRATION — HAPPY PATH  */
+
+    private void fillInRegistrationForm() { // ADAPT TO ACTUAL FIELD REQUIRES ##############
         gendersRadioButtons.get(new Random().nextInt(gendersRadioButtons.size())).click();
-        if (validForm) {
-            customerFirstnameInput.sendKeys(faker.getFakeFirstName());
-        }
-        customerLastnameInput.sendKeys(faker.getFakeLastName());
+        customerFirstNameInput.sendKeys(faker.getFakeFirstName());
+        customerLastNameInput.sendKeys(faker.getFakeLastName());
         passwordInput.sendKeys(faker.getFakePassword());
         Date fakeDate = faker.getFakeDateOfBirthday();
         new Select(birthdayDaySelect).selectByValue(String.valueOf(fakeDate.getDate()));
@@ -89,35 +74,52 @@ public class SignUp extends BasePage {
     }
 
     @Step
-    public Profile submitFormWithValidData() {
-        fillInRegistrationForm(true);
+    public Profile submitRegistrationForm() {
+        fillInRegistrationForm();
         saveNewCustomerToFile();
         captureScreenshot();
-        submitFormButton.click();
+        registrationButton.click();
         return new Profile();
     }
 
+    /*  REGISTRATION — NEGATIVE PATH  */
+
     @Step
-    public SignUp submitFormWithInvalidData() {
-        fillInRegistrationForm(false);
+    public SignUp submitEmptyRegistrationForm() {
+        registrationButton.click();
+        return this;
+    }
+
+    @Step
+    public void userShouldSeeAllAlertMessages() {
+        List<String> errors = getAlertContent(errorAlerts);
+        Assert.assertThat(errors, IsCollectionContaining.hasItem("lastname is required."));
+        Assert.assertThat(errors, IsCollectionContaining.hasItem("firstname is required."));
+        Assert.assertThat(errors, IsCollectionContaining.hasItem("passwd is required."));
+    }
+
+    private void fillInRegistrationFormWithInvalidData(String name, String lastName, String email, String password) {
+        customerFirstNameInput.sendKeys(name);
+        customerLastNameInput.sendKeys(lastName);
+        emailInput.clear();
+        emailInput.sendKeys(email);
+        passwordInput.sendKeys(password);
+    }
+
+    @Step
+    public SignUp submitRegistrationFormWithInvalidData(String name, String lastName, String email, String password) {
+        fillInRegistrationFormWithInvalidData(name, lastName, email, password);
         captureScreenshot();
-        submitFormButton.click();
+        registrationButton.click();
         return this;
     }
 
     @Step
     public void userShouldSeeRegistrationFormAlert() {
-        String EXPECTED_MESSAGE = "firstname is required.";
-        Assert.assertThat(getAlertMessageContent(), IsCollectionContaining.hasItem(EXPECTED_MESSAGE));
+        Assert.assertFalse(errorAlerts.isEmpty());
     }
 
-    private List<String> getAlertMessageContent() {
-        List<String> alertMessages = new ArrayList<>();
-        for (WebElement message : alertMessageContent) {
-            alertMessages.add(message.getText());
-        }
-        return alertMessages;
-    }
+    /*  OTHER METHODS  */
 
     private void saveNewCustomerToFile() {
         try {
@@ -125,8 +127,8 @@ public class SignUp extends BasePage {
             BufferedWriter out = new BufferedWriter(file);
             out.write(emailInput.getAttribute("value") + "; " +
                     passwordInput.getAttribute("value") + "; " +
-                    customerFirstnameInput.getAttribute("value") + "; " +
-                    customerLastnameInput.getAttribute("value") + "; " +
+                    customerFirstNameInput.getAttribute("value") + "; " +
+                    customerLastNameInput.getAttribute("value") + "; " +
                     new Select(birthdayDaySelect).getFirstSelectedOption().getAttribute("value") + "; " +
                     new Select(birthdayMonthSelect).getFirstSelectedOption().getAttribute("value") + "; " +
                     new Select(birthdayYearSelect).getFirstSelectedOption().getAttribute("value") + "\n");

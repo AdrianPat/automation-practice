@@ -13,4 +13,16 @@ public abstract class DataProviders {
         String filePath = ".\\testData\\dataSetForInvalidSignIn.xlsx";
         return getDataFromExcel(filePath);
     }
+
+    @DataProvider
+    public static Object[][] dataSetWithInvalidEmails() throws IOException {
+        String filePath = ".\\testData\\dataSetWithInvalidEmails.xlsx";
+        return getDataFromExcel(filePath);
+    }
+
+    @DataProvider
+    public static Object[][] dataSetForInvalidRegistration() throws IOException {
+        String filePath = ".\\testData\\dataSetForInvalidRegistration.xlsx";
+        return getDataFromExcel(filePath);
+    }
 }
