@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Random;
 
 import static utilities.AlertMessageContent.getAlertContent;
-import static utilities.Screenshots.captureScreenshot;
+import static utilities.Screenshots.captureFullPageScreenshot;
 
 public class SignIn extends BasePage {
 
@@ -61,7 +61,7 @@ public class SignIn extends BasePage {
     @Step
     public Profile submitSignIn() {
         String userName = fillInSignInForm();
-        captureScreenshot();
+        captureFullPageScreenshot();
         signInButton.click();
         return new Profile(userName);
     }
@@ -76,13 +76,13 @@ public class SignIn extends BasePage {
     @Step
     public SignIn submitSignInWithInvalidData(String email, String password) {
         fillInSignInFormWithInvalidData(email, password);
-        captureScreenshot();
+        captureFullPageScreenshot();
         signInButton.click();
         return new SignIn();
     }
 
     @Step
-    public void submitSignWithInvalidDataShouldFail() {
+    public void submitSignInWithInvalidDataShouldFail() {
         Assert.assertTrue(authenticationHeadingText.isDisplayed());
         Assert.assertTrue(signInAlertBlock.isDisplayed());
     }
@@ -96,28 +96,25 @@ public class SignIn extends BasePage {
     @Step
     public SignUp submitCreateAccountForm() {
         fillInCreateAccountForm(faker.getFakeEmail());
-        captureScreenshot();
+        captureFullPageScreenshot();
         createAccountButton.click();
         return new SignUp();
     }
 
     /*  MOVING TO SIGN UP (REGISTRATION) PAGE — NEGATIVE PATH  */
 
-    private void fillInCreateAccountFormWithInvalidEmail(String invalidEmail) {
-        emailCreateInput.sendKeys(invalidEmail);
-    }
-
     @Step
     public SignIn submitCreateAccountFormWithInvalidEmail(String invalidEmail) {
-        fillInCreateAccountFormWithInvalidEmail(invalidEmail);
-        captureScreenshot();
+        fillInCreateAccountForm(invalidEmail);
+        captureFullPageScreenshot();
         createAccountButton.click();
         return this;
     }
 
     @Step
     public SignIn submitCreateAccountFormWithTakenEmail() {
-        fillInCreateAccountFormWithInvalidEmail(getRandomUserFromFile()[0]);
+        fillInCreateAccountForm(getRandomUserFromFile()[0]);
+        captureFullPageScreenshot();
         createAccountButton.click();
         return this;
     }
@@ -146,7 +143,7 @@ public class SignIn extends BasePage {
 
     /*  OTHER METHODS  */
 
-    private String[] getRandomUserFromFile() {
+    private String[] getRandomUserFromFile() { // to do: implement getting user from Excel (saving: in SignUp class)
         String[] userInfo = {};
         try {
             List<String> file = Files.readAllLines(Paths.get("my_users.txt"));

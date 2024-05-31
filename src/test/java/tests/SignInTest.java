@@ -20,6 +20,6 @@ public class SignInTest extends TestConfig {
         new Home()
                 .openSignInPage()
                 .submitSignInWithInvalidData(email, password)
-                .submitSignWithInvalidDataShouldFail();
+                .submitSignInWithInvalidDataShouldFail();
     }
 }

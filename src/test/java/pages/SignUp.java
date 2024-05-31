@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Random;
 
 import static utilities.AlertMessageContent.getAlertContent;
-import static utilities.Screenshots.captureScreenshot;
+import static utilities.Screenshots.captureFullPageScreenshot;
 
 public class SignUp extends BasePage {
 
@@ -61,15 +61,19 @@ public class SignUp extends BasePage {
 
     /*  REGISTRATION — HAPPY PATH  */
 
-    private void fillInRegistrationForm() { // ADAPT TO ACTUAL FIELD REQUIRES ##############
-        gendersRadioButtons.get(new Random().nextInt(gendersRadioButtons.size())).click();
+    private void fillInRegistrationForm() {
+        if (new Random().nextBoolean()) {
+            gendersRadioButtons.get(new Random().nextInt(gendersRadioButtons.size())).click();
+        }
         customerFirstNameInput.sendKeys(faker.getFakeFirstName());
         customerLastNameInput.sendKeys(faker.getFakeLastName());
         passwordInput.sendKeys(faker.getFakePassword());
-        Date fakeDate = faker.getFakeDateOfBirthday();
-        new Select(birthdayDaySelect).selectByValue(String.valueOf(fakeDate.getDate()));
-        new Select(birthdayMonthSelect).selectByValue(String.valueOf(fakeDate.getMonth() + 1));
-        new Select(birthdayYearSelect).selectByValue(String.valueOf(fakeDate.getYear() + 1900));
+        if (new Random().nextBoolean()) {
+            Date fakeDate = faker.getFakeDateOfBirthday();
+            new Select(birthdayDaySelect).selectByValue(String.valueOf(fakeDate.getDate()));
+            new Select(birthdayMonthSelect).selectByValue(String.valueOf(fakeDate.getMonth() + 1));
+            new Select(birthdayYearSelect).selectByValue(String.valueOf(fakeDate.getYear() + 1900));
+        }
         if (new Random().nextBoolean()) newsletterCheckbox.click();
     }
 
@@ -77,7 +81,7 @@ public class SignUp extends BasePage {
     public Profile submitRegistrationForm() {
         fillInRegistrationForm();
         saveNewCustomerToFile();
-        captureScreenshot();
+        captureFullPageScreenshot();
         registrationButton.click();
         return new Profile();
     }
@@ -109,7 +113,7 @@ public class SignUp extends BasePage {
     @Step
     public SignUp submitRegistrationFormWithInvalidData(String name, String lastName, String email, String password) {
         fillInRegistrationFormWithInvalidData(name, lastName, email, password);
-        captureScreenshot();
+        captureFullPageScreenshot();
         registrationButton.click();
         return this;
     }
@@ -121,7 +125,7 @@ public class SignUp extends BasePage {
 
     /*  OTHER METHODS  */
 
-    private void saveNewCustomerToFile() {
+    private void saveNewCustomerToFile() { // to do: implement saving into Excel
         try {
             FileWriter file = new FileWriter("my_users.txt", true);
             BufferedWriter out = new BufferedWriter(file);
@@ -132,7 +136,7 @@ public class SignUp extends BasePage {
                     new Select(birthdayDaySelect).getFirstSelectedOption().getAttribute("value") + "; " +
                     new Select(birthdayMonthSelect).getFirstSelectedOption().getAttribute("value") + "; " +
                     new Select(birthdayYearSelect).getFirstSelectedOption().getAttribute("value") + "\n");
-            // implement saving gender and newsletter
+            // to do: implement saving gender and newsletter
             out.close();
             file.close();
         } catch (IOException e) {

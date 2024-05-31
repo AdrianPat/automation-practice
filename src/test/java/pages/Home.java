@@ -4,8 +4,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import ru.yandex.qatools.allure.annotations.Step;
 
-import static utilities.Screenshots.captureScreenshot;
-
 public class Home extends BasePage {
 
     public Home() {
@@ -18,7 +16,7 @@ public class Home extends BasePage {
     @Step
     public SignIn openSignInPage() {
         signInButton.click();
-        captureScreenshot();
+        // captureFullPageScreenshot();
         return new SignIn();
     }
 }
