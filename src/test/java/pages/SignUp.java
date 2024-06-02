@@ -1,16 +1,16 @@
 package pages;
 
-import org.hamcrest.core.IsCollectionContaining;
-import org.junit.Assert;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
-import ru.yandex.qatools.allure.annotations.Step;
+import org.testng.Assert;
 import utilities.DataFaker;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -56,7 +56,7 @@ public class SignUp extends BasePage {
     @FindBy(css = "#center_column > .alert li")
     private List<WebElement> errorAlerts;
 
-    @FindBy(css = "[type=\"radio\"]")
+    @FindBy(css = "[type='radio']")
     private List<WebElement> gendersRadioButtons;
 
     /*  REGISTRATION — HAPPY PATH  */
@@ -97,9 +97,11 @@ public class SignUp extends BasePage {
     @Step
     public void userShouldSeeAllAlertMessages() {
         List<String> errors = getAlertContent(errorAlerts);
-        Assert.assertThat(errors, IsCollectionContaining.hasItem("lastname is required."));
-        Assert.assertThat(errors, IsCollectionContaining.hasItem("firstname is required."));
-        Assert.assertThat(errors, IsCollectionContaining.hasItem("passwd is required."));
+        List<String> expectedErrors = new ArrayList<>();
+        expectedErrors.add("lastname is required.");
+        expectedErrors.add("firstname is required.");
+        expectedErrors.add("passwd is required.");
+        Assert.assertEquals(errors, expectedErrors);
     }
 
     private void fillInRegistrationFormWithInvalidData(String name, String lastName, String email, String password) {

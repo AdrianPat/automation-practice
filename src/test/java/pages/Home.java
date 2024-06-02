@@ -1,8 +1,8 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import ru.yandex.qatools.allure.annotations.Step;
 
 public class Home extends BasePage {
 
@@ -10,7 +10,7 @@ public class Home extends BasePage {
         super();
     }
 
-    @FindBy(css = "[title=\"Log in to your customer account\"]")
+    @FindBy(css = "[title='Log in to your customer account']")
     private WebElement signInButton;
 
     @Step

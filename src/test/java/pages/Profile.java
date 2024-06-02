@@ -1,9 +1,9 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
-import ru.yandex.qatools.allure.annotations.Step;
 
 public class Profile extends BasePage {
 
@@ -21,10 +21,10 @@ public class Profile extends BasePage {
     @FindBy(css = "#center_column > h1")
     private WebElement profilePageHeader;
 
-    @FindBy(css = "[title=\"View my customer account\"]")
+    @FindBy(css = "[title='View my customer account']")
     private WebElement viewMyCustomerAccountButton;
 
-    @FindBy(css = "[title=\"Log me out\"]")
+    @FindBy(css = "[title='Log me out']")
     private WebElement signOutButton;
 
     @Step
@@ -34,7 +34,7 @@ public class Profile extends BasePage {
 
     @Step
     public void userShouldBeSuccessfullySignedIn() {
-        userShouldBeSuccessfullyRegistered();
+        Assert.assertEquals("MY ACCOUNT", profilePageHeader.getText());
         Assert.assertEquals(userName, viewMyCustomerAccountButton.getText());
     }
 
