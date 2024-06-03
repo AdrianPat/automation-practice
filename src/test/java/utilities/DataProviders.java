@@ -25,4 +25,10 @@ public abstract class DataProviders {
         String filePath = ".\\testData\\dataSetForInvalidRegistration.xlsx";
         return getDataFromExcel(filePath);
     }
+
+    @DataProvider
+    public static Object[][] dataSetWithInvalidDates() throws IOException {
+        String filePath = ".\\testData\\dataSetWithInvalidDates.xlsx";
+        return getDataFromExcel(filePath);
+    }
 }

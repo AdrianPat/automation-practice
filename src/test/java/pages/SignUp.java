@@ -125,9 +125,33 @@ public class SignUp extends BasePage {
         Assert.assertFalse(errorAlerts.isEmpty());
     }
 
+    private void fillInRegistrationFormWithInvalidDate(String day, String month, String year) {
+        customerFirstNameInput.sendKeys(faker.getFakeFirstName());
+        customerLastNameInput.sendKeys(faker.getFakeLastName());
+        passwordInput.sendKeys(faker.getFakePassword());
+        new Select(birthdayDaySelect).selectByValue(day);
+        new Select(birthdayMonthSelect).selectByValue(month);
+        new Select(birthdayYearSelect).selectByValue(year);
+    }
+
+    @Step
+    public SignUp submitRegistrationFormWithInvalidDate(String day, String month, String year) {
+        fillInRegistrationFormWithInvalidDate(day, month, year);
+        captureFullPageScreenshot();
+        registrationButton.click();
+        return this;
+    }
+
+    @Step
+    public void userShouldSeeInvalidDateAlert() {
+        String invalidDate = "Invalid date of birthday";
+        Assert.assertListContainsObject(getAlertContent(errorAlerts), invalidDate,
+                "User should see alert: " + invalidDate);
+    }
+
     /*  OTHER METHODS  */
 
-    private void saveNewCustomerToFile() { // to do: implement saving into Excel
+    private void saveNewCustomerToFile() { // TODO: implement saving into Excel
         try {
             FileWriter file = new FileWriter("my_users.txt", true);
             BufferedWriter out = new BufferedWriter(file);
@@ -138,7 +162,7 @@ public class SignUp extends BasePage {
                     new Select(birthdayDaySelect).getFirstSelectedOption().getAttribute("value") + "; " +
                     new Select(birthdayMonthSelect).getFirstSelectedOption().getAttribute("value") + "; " +
                     new Select(birthdayYearSelect).getFirstSelectedOption().getAttribute("value") + "\n");
-            // to do: implement saving gender and newsletter
+            // TODO: implement saving gender and newsletter
             out.close();
             file.close();
         } catch (IOException e) {

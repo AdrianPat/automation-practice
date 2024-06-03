@@ -122,13 +122,15 @@ public class SignIn extends BasePage {
     public void userShouldSeeCreateAccountAlertMessage(Email email) {
         switch (email) {
             case INVALID:
+                String invalidEmail = "Invalid email address.";
                 Assert.assertListContainsObject(getAlertContent(createAccountError),
-                        "Invalid email address.", "");
+                        invalidEmail, "User should see alert: " + invalidEmail);
                 break;
             case TAKEN:
+                String takenEmail = "An account using this email address has already been " +
+                        "registered. Please enter a valid password or request a new one.";
                 Assert.assertListContainsObject(getAlertContent(createAccountError),
-                        "An account using this email address has already been " +
-                                "registered. Please enter a valid password or request a new one.", "");
+                        takenEmail, "User should see alert: " + takenEmail);
                 break;
         }
     }

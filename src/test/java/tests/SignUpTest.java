@@ -50,4 +50,13 @@ public class SignUpTest extends TestConfig {
                 .submitRegistrationFormWithInvalidData(name, lastName, email, password)
                 .userShouldSeeRegistrationFormAlert();
     }
+
+    @Test(dataProvider = "dataSetWithInvalidDates", dataProviderClass = DataProviders.class)
+    public void registrationWithInvalidDateOfBirthShouldFail(String day, String month, String year) {
+        new Home()
+                .openSignInPage()
+                .submitCreateAccountForm()
+                .submitRegistrationFormWithInvalidDate(day, month, year)
+                .userShouldSeeInvalidDateAlert();
+    }
 }
