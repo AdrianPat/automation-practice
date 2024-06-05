@@ -3,9 +3,9 @@
 <suite name="Testing Automation Practice Website">
     <test name="Regression">
         <classes>
-            <!--<class name="tests.SignInTest"/>-->
+            <!-- <class name="tests.SignInTest"/> -->
             <class name="tests.SignOutTest"/>
-            <!--<class name="tests.SignUpTest"/>-->
+            <!-- <class name="tests.SignUpTest"/> -->
         </classes>
     </test>
 </suite>

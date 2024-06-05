@@ -7,15 +7,13 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import utilities.DataFaker;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
 import static utilities.AlertMessageContent.getAlertContent;
+import static utilities.Excel.saveNewUserIntoExcel;
 import static utilities.Screenshots.captureFullPageScreenshot;
 
 public class SignUp extends BasePage {
@@ -47,7 +45,7 @@ public class SignUp extends BasePage {
     @FindBy(id = "years")
     private WebElement birthdayYearSelect;
 
-    @FindBy(id = "uniform-newsletter")
+    @FindBy(id = "newsletter")
     private WebElement newsletterCheckbox;
 
     @FindBy(id = "submitAccount")
@@ -57,13 +55,13 @@ public class SignUp extends BasePage {
     private List<WebElement> errorAlerts;
 
     @FindBy(css = "[type='radio']")
-    private List<WebElement> gendersRadioButtons;
+    private List<WebElement> titlesRadioButtons;
 
     /*  REGISTRATION — HAPPY PATH  */
 
     private void fillInRegistrationForm() {
         if (new Random().nextBoolean()) {
-            gendersRadioButtons.get(new Random().nextInt(gendersRadioButtons.size())).click();
+            titlesRadioButtons.get(new Random().nextInt(titlesRadioButtons.size())).click();
         }
         customerFirstNameInput.sendKeys(faker.getFakeFirstName());
         customerLastNameInput.sendKeys(faker.getFakeLastName());
@@ -80,7 +78,7 @@ public class SignUp extends BasePage {
     @Step
     public Profile submitRegistrationForm() {
         fillInRegistrationForm();
-        saveNewCustomerToFile();
+        saveNewUserIntoExcelFile();
         captureFullPageScreenshot();
         registrationButton.click();
         return new Profile();
@@ -151,7 +149,27 @@ public class SignUp extends BasePage {
 
     /*  OTHER METHODS  */
 
-    private void saveNewCustomerToFile() { // TODO: implement saving into Excel
+    private void saveNewUserIntoExcelFile() {
+        String email = emailInput.getAttribute("value");
+        String password = passwordInput.getAttribute("value");
+        String firstName = customerFirstNameInput.getAttribute("value");
+        String lastName = customerLastNameInput.getAttribute("value");
+        String day = new Select(birthdayDaySelect).getFirstSelectedOption().getAttribute("value");
+        String month = new Select(birthdayMonthSelect).getFirstSelectedOption().getAttribute("value");
+        String year = new Select(birthdayYearSelect).getFirstSelectedOption().getAttribute("value");
+        String title = "";
+        for (WebElement radio : titlesRadioButtons) {
+            if (radio.isSelected()) {
+                title = radio.getAttribute("value");
+                break;
+            }
+        }
+        boolean newsletter = newsletterCheckbox.isSelected();
+        Object[] userInfo = {email, password, firstName, lastName, day, month, year, title, newsletter};
+        saveNewUserIntoExcel(userInfo);
+    }
+
+    /* private void saveNewCustomerToFile() { // method no longer used
         try {
             FileWriter file = new FileWriter("my_users.txt", true);
             BufferedWriter out = new BufferedWriter(file);
@@ -162,11 +180,10 @@ public class SignUp extends BasePage {
                     new Select(birthdayDaySelect).getFirstSelectedOption().getAttribute("value") + "; " +
                     new Select(birthdayMonthSelect).getFirstSelectedOption().getAttribute("value") + "; " +
                     new Select(birthdayYearSelect).getFirstSelectedOption().getAttribute("value") + "\n");
-            // TODO: implement saving gender and newsletter
             out.close();
             file.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    } */
 }

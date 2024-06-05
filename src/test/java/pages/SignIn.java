@@ -7,13 +7,10 @@ import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 import utilities.DataFaker;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
-import java.util.Random;
 
 import static utilities.AlertMessageContent.getAlertContent;
+import static utilities.Excel.getRandomUserFromExcel;
 import static utilities.Screenshots.captureFullPageScreenshot;
 
 public class SignIn extends BasePage {
@@ -51,7 +48,7 @@ public class SignIn extends BasePage {
     /*  SIGN IN — HAPPY PATH  */
 
     private String fillInSignInForm() {
-        String[] userInfo = getRandomUserFromFile();
+        String[] userInfo = getRandomUserFromExcel();
         emailInput.sendKeys(userInfo[0]);
         passwordInput.sendKeys(userInfo[1]);
         return userInfo[2] + " " + userInfo[3];
@@ -112,7 +109,7 @@ public class SignIn extends BasePage {
 
     @Step
     public SignIn submitCreateAccountFormWithTakenEmail() {
-        fillInCreateAccountForm(getRandomUserFromFile()[0]);
+        fillInCreateAccountForm(getRandomUserFromExcel()[0]);
         captureFullPageScreenshot();
         createAccountButton.click();
         return this;
@@ -144,7 +141,7 @@ public class SignIn extends BasePage {
 
     /*  OTHER METHODS  */
 
-    private String[] getRandomUserFromFile() { // to do: implement getting user from Excel (saving: in SignUp class)
+    /* private String[] getRandomUserFromFile() { // method no longer used
         String[] userInfo = {};
         try {
             List<String> file = Files.readAllLines(Paths.get("my_users.txt"));
@@ -154,5 +151,5 @@ public class SignIn extends BasePage {
             System.out.println("Probably the file “my_users.txt” does not exist or is empty.");
         }
         return userInfo;
-    }
+    } */
 }

@@ -4,7 +4,7 @@ import org.testng.annotations.DataProvider;
 
 import java.io.IOException;
 
-import static utilities.ReadingDataFromExcel.getDataFromExcel;
+import static utilities.Excel.getDataFromExcel;
 
 public abstract class DataProviders {
 
