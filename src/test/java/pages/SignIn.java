@@ -45,7 +45,7 @@ public class SignIn extends BasePage {
     @FindBy(xpath = "//div[@class='alert alert-danger']/ol/li")
     private List<WebElement> createAccountError;
 
-    /*  SIGN IN — HAPPY PATH  */
+    /*  SIGN IN — HAPPY PATHS  */
 
     private String fillInSignInForm() {
         String[] userInfo = getRandomUserFromExcel();
@@ -62,7 +62,7 @@ public class SignIn extends BasePage {
         return new Profile(userName);
     }
 
-    /*  SIGN IN — NEGATIVE PATH  */
+    /*  SIGN IN — NEGATIVE PATHS  */
 
     private void fillInSignInFormWithInvalidData(String email, String password) {
         emailInput.sendKeys(email);
@@ -83,7 +83,7 @@ public class SignIn extends BasePage {
         Assert.assertTrue(signInAlertBlock.isDisplayed());
     }
 
-    /*  MOVING TO SIGN UP (REGISTRATION) PAGE — HAPPY PATH  */
+    /*  MOVING TO SIGN UP (REGISTRATION) PAGE — HAPPY PATHS  */
 
     private void fillInCreateAccountForm(String emailAddress) {
         emailCreateInput.sendKeys(emailAddress);
@@ -97,7 +97,7 @@ public class SignIn extends BasePage {
         return new SignUp();
     }
 
-    /*  MOVING TO SIGN UP (REGISTRATION) PAGE — NEGATIVE PATH  */
+    /*  MOVING TO SIGN UP (REGISTRATION) PAGE — NEGATIVE PATHS  */
 
     @Step
     public SignIn submitCreateAccountFormWithInvalidEmail(String invalidEmail) {

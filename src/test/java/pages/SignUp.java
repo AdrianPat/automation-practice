@@ -57,7 +57,7 @@ public class SignUp extends BasePage {
     @FindBy(css = "[type='radio']")
     private List<WebElement> titlesRadioButtons;
 
-    /*  REGISTRATION — HAPPY PATH  */
+    /*  REGISTRATION — HAPPY PATHS  */
 
     private void fillInRegistrationForm() {
         if (new Random().nextBoolean()) {
@@ -84,7 +84,7 @@ public class SignUp extends BasePage {
         return new Profile();
     }
 
-    /*  REGISTRATION — NEGATIVE PATH  */
+    /*  REGISTRATION — NEGATIVE PATHS  */
 
     @Step
     public SignUp submitEmptyRegistrationForm() {
