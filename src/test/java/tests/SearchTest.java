@@ -3,20 +3,21 @@ package tests;
 import config.TestConfig;
 import org.testng.annotations.Test;
 import pages.Home;
+import utilities.DataProviders;
 
 public class SearchTest extends TestConfig {
 
-    @Test // TODO: add DataProvider
-    public void successfulSearchingProducts() {
+    @Test(dataProvider = "dataSetWithProductsToSearch", dataProviderClass = DataProviders.class)
+    public void successfulSearchingProducts(String product) {
         new Home()
-                .submitSearch("dress")
+                .submitSearch(product)
                 .userShouldSeeProductsGrid();
     }
 
-    @Test // TODO: add DataProvider
-    public void noResultsOfSearchingProducts() {
+    @Test(dataProvider = "dataSetForInvalidSearch", dataProviderClass = DataProviders.class)
+    public void noResultsOfSearchingProducts(String product) {
         new Home()
-                .submitSearch("dresss")
+                .submitSearch(product)
                 .userShouldSeeNoResultsAlert();
     }
 

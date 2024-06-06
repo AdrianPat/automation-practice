@@ -12,11 +12,11 @@ import static config.WebDriverSingleton.getInstance;
 
 public class Products extends BasePage {
 
-    private String searchPhrase;
+    private final String searchPhrase;
 
-    public Products() {
+    /* public Products() {
         super();
-    }
+    } */
 
     public Products(String searchPhrase) {
         super();

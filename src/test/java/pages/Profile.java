@@ -7,11 +7,11 @@ import org.testng.Assert;
 
 public class Profile extends BasePage {
 
-    private String userName;
+    private final String userName;
 
-    public Profile() {
+    /* public Profile() {
         super();
-    }
+    } */
 
     public Profile(String userName) {
         super();
@@ -30,6 +30,7 @@ public class Profile extends BasePage {
     @Step
     public void userShouldBeSuccessfullyRegistered() {
         Assert.assertEquals("MY ACCOUNT", profilePageHeader.getText());
+        Assert.assertEquals(userName, viewMyCustomerAccountButton.getText());
     }
 
     @Step

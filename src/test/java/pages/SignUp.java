@@ -80,8 +80,10 @@ public class SignUp extends BasePage {
         fillInRegistrationForm();
         saveNewUserIntoExcelFile();
         captureFullPageScreenshot();
+        String firstName = customerFirstNameInput.getAttribute("value");
+        String lastName = customerLastNameInput.getAttribute("value");
         registrationButton.click();
-        return new Profile();
+        return new Profile(firstName + " " + lastName);
     }
 
     /*  REGISTRATION — NEGATIVE PATHS  */

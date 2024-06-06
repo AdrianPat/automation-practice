@@ -31,4 +31,16 @@ public abstract class DataProviders {
         String filePath = ".\\testData\\dataSetWithInvalidDates.xlsx";
         return getDataFromExcel(filePath);
     }
+
+    @DataProvider
+    public static Object[][] dataSetWithProductsToSearch() throws IOException {
+        String filePath = ".\\testData\\dataSetWithProductsToSearch.xlsx";
+        return getDataFromExcel(filePath);
+    }
+
+    @DataProvider
+    public static Object[][] dataSetForInvalidSearch() throws IOException {
+        String filePath = ".\\testData\\dataSetForInvalidSearch.xlsx";
+        return getDataFromExcel(filePath);
+    }
 }
