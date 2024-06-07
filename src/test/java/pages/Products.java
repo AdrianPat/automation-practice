@@ -6,7 +6,6 @@ import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
 import java.util.List;
-import java.util.Random;
 
 import static config.WebDriverSingleton.getDriver;
 
@@ -22,12 +21,6 @@ public class Products extends BasePage {
         super();
         this.searchPhrase = searchPhrase;
     }
-
-    @FindBy(id = "search_query_top")
-    private WebElement searchInput;
-
-    @FindBy(css = "[class='btn btn-default button-search']")
-    private WebElement submitSearchButton;
 
     @FindBy(css = "span[class='lighter']")
     private WebElement searchingTextInHeader;
@@ -100,12 +93,7 @@ public class Products extends BasePage {
     @Step
     public Products nextSearchingOfProducts(String searchPhrase) {
         searchInput.clear();
-        searchInput.sendKeys(searchPhrase);
-        if (new Random().nextBoolean()) {
-            submitSearchButton.click();
-        } else {
-            searchInput.submit();
-        }
+        submitByEnterOrClick(searchPhrase);
         return new Products(searchPhrase);
     }
 
