@@ -6,7 +6,7 @@ import io.qameta.allure.Attachment;
 
 import java.io.IOException;
 
-import static config.WebDriverSingleton.getInstance;
+import static config.WebDriverSingleton.getDriver;
 
 public abstract class Screenshots {
 
@@ -14,7 +14,7 @@ public abstract class Screenshots {
     public static byte[] captureFullPageScreenshot() {
         byte[] screenshot = {};
         try {
-            screenshot = Shutterbug.shootPage(getInstance(), Capture.FULL, true).getBytes();
+            screenshot = Shutterbug.shootPage(getDriver(), Capture.FULL, true).getBytes();
         } catch (IOException e) {
             e.printStackTrace();
         }

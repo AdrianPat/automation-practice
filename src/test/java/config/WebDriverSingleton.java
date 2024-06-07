@@ -11,7 +11,7 @@ public abstract class WebDriverSingleton {
     private WebDriverSingleton() {
     }
 
-    public static WebDriver getInstance() {
+    public static WebDriver getDriver() {
         if (driver == null) {
             WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver();

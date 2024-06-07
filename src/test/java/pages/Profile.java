@@ -27,16 +27,19 @@ public class Profile extends BasePage {
     @FindBy(css = "[title='Log me out']")
     private WebElement signOutButton;
 
-    @Step
-    public void userShouldBeSuccessfullyRegistered() {
+    private void isUserSignedIn() {
         Assert.assertEquals("MY ACCOUNT", profilePageHeader.getText());
         Assert.assertEquals(userName, viewMyCustomerAccountButton.getText());
     }
 
     @Step
+    public void userShouldBeSuccessfullyRegistered() {
+        isUserSignedIn();
+    }
+
+    @Step
     public void userShouldBeSuccessfullySignedIn() {
-        Assert.assertEquals("MY ACCOUNT", profilePageHeader.getText());
-        Assert.assertEquals(userName, viewMyCustomerAccountButton.getText());
+        isUserSignedIn();
     }
 
     @Step

@@ -8,15 +8,15 @@ import org.testng.Assert;
 import java.util.List;
 import java.util.Random;
 
-import static config.WebDriverSingleton.getInstance;
+import static config.WebDriverSingleton.getDriver;
 
 public class Products extends BasePage {
 
-    private final String searchPhrase;
+    private String searchPhrase;
 
-    /* public Products() {
+    public Products() {
         super();
-    } */
+    }
 
     public Products(String searchPhrase) {
         super();
@@ -56,7 +56,13 @@ public class Products extends BasePage {
     @FindBy(id = "grid")
     private WebElement gridViewIcon;
 
-    /*  SEARCHING PRODUCTS — HAPPY PATHS  */
+    @FindBy(css = "[class='breadcrumb clearfix']")
+    private WebElement breadcrumb;
+
+    @FindBy(css = "[class='cat-name']")
+    private WebElement categoryNameInHeading;
+
+    /*  SEARCHING PRODUCTS — POSITIVE TESTING  */
 
     @Step
     public void userShouldSeeProductsGrid() {
@@ -87,7 +93,7 @@ public class Products extends BasePage {
         listViewIcon.click();
         wait(1000);
         gridViewIcon.click();
-        getInstance().navigate().refresh();
+        getDriver().navigate().refresh();
         return this;
     }
 
@@ -103,7 +109,7 @@ public class Products extends BasePage {
         return new Products(searchPhrase);
     }
 
-    /*  SEARCHING PRODUCTS — NEGATIVE PATHS  */
+    /*  SEARCHING PRODUCTS — NEGATIVE TESTING  */
 
     @Step
     public void userShouldSeeNoResultsAlert() {
@@ -117,5 +123,15 @@ public class Products extends BasePage {
         Assert.assertTrue(resultsNumber.getText().startsWith("0"));
         Assert.assertTrue(noResultsAlert.isDisplayed());
         Assert.assertEquals(noResultsAlert.getText(), "Please enter a search keyword");
+    }
+
+    /*  GOING TO TABS: WOMEN, DRESSES, T-SHIRTS, BLOG  */
+
+    @Step
+    public void userShouldSeeProductsInWomenTab() {
+        Assert.assertEquals(breadcrumb.getText(), "> Women");
+        Assert.assertEquals(categoryNameInHeading.getText(), "WOMEN ");
+        Assert.assertTrue(productsGrid.isDisplayed());
+        Assert.assertFalse(productBlocksInGridView.isEmpty());
     }
 }

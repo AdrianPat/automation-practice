@@ -21,12 +21,19 @@ public class Home extends BasePage {
     @FindBy(css = "[class='btn btn-default button-search']")
     private WebElement submitSearchButton;
 
+    @FindBy(css = "[title='Women'")
+    private WebElement womenTab;
+
+    /*  GOING TO SING IN PAGE  */
+
     @Step
     public SignIn openSignInPage() {
         signInButton.click();
         // captureFullPageScreenshot();
         return new SignIn();
     }
+
+    /*  SEARCHING PRODUCTS  */
 
     private void enterTextInSearchInput(String searchPhrase) {
         searchInput.sendKeys(searchPhrase);
@@ -42,5 +49,13 @@ public class Home extends BasePage {
             searchInput.submit();
         }
         return new Products(searchPhrase);
+    }
+
+    /*  GOING TO TABS: WOMEN, DRESSES, T-SHIRTS, BLOG  */
+
+    @Step
+    public Products goToWomenTab() {
+        womenTab.click();
+        return new Products();
     }
 }
