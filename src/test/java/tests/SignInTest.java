@@ -16,7 +16,7 @@ public class SignInTest extends TestConfig {
     }
 
     @Test(dataProvider = "dataSetForInvalidSignIn", dataProviderClass = DataProviders.class)
-    public void signInWithInvalidDataShouldFail(String email, String password) {
+    public void unsuccessfulSignInWithInvalidData(String email, String password) {
         new Home()
                 .openSignInPage()
                 .submitSignInWithInvalidData(email, password)

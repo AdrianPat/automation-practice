@@ -18,7 +18,7 @@ public class SignUpTest extends TestConfig {
     }
 
     @Test
-    public void submitEmptyRegistrationFormShouldFail() {
+    public void unsuccessfulSubmitEmptyRegistrationForm() {
         new Home()
                 .openSignInPage()
                 .submitCreateAccountForm()
@@ -27,7 +27,7 @@ public class SignUpTest extends TestConfig {
     }
 
     @Test(dataProvider = "dataSetWithInvalidEmails", dataProviderClass = DataProviders.class)
-    public void submitCreateAccountFormWithInvalidEmailShouldFail(String invalidEmail) {
+    public void unsuccessfulSubmitCreateAccountFormWithInvalidEmail(String invalidEmail) {
         new Home()
                 .openSignInPage()
                 .submitCreateAccountFormWithInvalidEmail(invalidEmail)
@@ -35,7 +35,7 @@ public class SignUpTest extends TestConfig {
     }
 
     @Test
-    public void submitCreateAccountFormWithTakenEmailShouldFail() {
+    public void unsuccessfulSubmitCreateAccountFormWithTakenEmail() {
         new Home()
                 .openSignInPage()
                 .submitCreateAccountFormWithTakenEmail()
@@ -43,7 +43,7 @@ public class SignUpTest extends TestConfig {
     }
 
     @Test(dataProvider = "dataSetForInvalidRegistration", dataProviderClass = DataProviders.class)
-    public void registrationWithInvalidDataShouldFail(String name, String lastName, String email, String password) {
+    public void unsuccessfulRegistrationWithInvalidData(String name, String lastName, String email, String password) {
         new Home()
                 .openSignInPage()
                 .submitCreateAccountForm()
@@ -52,7 +52,7 @@ public class SignUpTest extends TestConfig {
     }
 
     @Test(dataProvider = "dataSetWithInvalidDates", dataProviderClass = DataProviders.class)
-    public void registrationWithInvalidDateOfBirthShouldFail(String day, String month, String year) {
+    public void unsuccessfulRegistrationWithInvalidDateOfBirth(String day, String month, String year) {
         new Home()
                 .openSignInPage()
                 .submitCreateAccountForm()

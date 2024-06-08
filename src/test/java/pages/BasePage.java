@@ -12,7 +12,7 @@ import static utilities.Actions.waitForVisibilityOfElement;
 
 public abstract class BasePage {
 
-    protected BasePage() { // or public
+    protected BasePage() {
         PageFactory.initElements(getDriver(), this);
         waitForVisibilityOfElement(pageContent);
     }

@@ -15,21 +15,21 @@ public class SearchTest extends TestConfig {
     }
 
     @Test(dataProvider = "dataSetForInvalidSearch", dataProviderClass = DataProviders.class)
-    public void noResultsOfSearchingProducts(String product) {
+    public void unsuccessfulSearchingProducts(String product) {
         new Home()
                 .submitSearch(product)
                 .userShouldSeeNoResultsAlert();
     }
 
     @Test
-    public void noResultsForSearchingEmptyPhrase() {
+    public void unsuccessfulSearchingOfEmptyPhrase() {
         new Home()
                 .submitSearch("")
                 .userShouldSeePleaseEnterASearchKeywordAlert();
     }
 
     @Test
-    public void changeViewFromGridToListShouldWork() {
+    public void successfulChangingViewFromGridToList() {
         new Home()
                 .submitSearch("dress")
                 .changeViewFromGridToList()
@@ -37,7 +37,7 @@ public class SearchTest extends TestConfig {
     }
 
     @Test
-    public void changeViewFromListToGridShouldWork() throws InterruptedException {
+    public void successfulChangingViewFromListToGrid() throws InterruptedException {
         new Home()
                 .submitSearch("dress")
                 .changeViewFromGridToList()

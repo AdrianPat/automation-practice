@@ -7,7 +7,7 @@ import pages.Home;
 public class NavigationTest extends TestConfig {
 
     @Test
-    public void goingToWomenTabShouldWork() {
+    public void successfulGoingToWomenTab() {
         new Home()
                 .goToWomenTab()
                 .userShouldSeeProductsInWomenTab();
