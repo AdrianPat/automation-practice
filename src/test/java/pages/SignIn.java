@@ -83,7 +83,7 @@ public class SignIn extends BasePage {
         Assert.assertTrue(signInAlertBlock.isDisplayed());
     }
 
-    /*  MOVING TO SIGN UP (REGISTRATION) PAGE — POSITIVE TESTING  */
+    /*  MOVE TO SIGN UP (REGISTRATION) PAGE — POSITIVE TESTING  */
 
     private void fillInCreateAccountForm(String emailAddress) {
         emailCreateInput.sendKeys(emailAddress);
@@ -97,7 +97,7 @@ public class SignIn extends BasePage {
         return new SignUp();
     }
 
-    /*  MOVING TO SIGN UP (REGISTRATION) PAGE — NEGATIVE TESTING  */
+    /*  MOVE TO SIGN UP (REGISTRATION) PAGE — NEGATIVE TESTING  */
 
     @Step
     public SignIn submitCreateAccountFormWithInvalidEmail(String invalidEmail) {

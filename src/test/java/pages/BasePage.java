@@ -8,7 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.Random;
 
 import static config.WebDriverSingleton.getDriver;
-import static utilities.Actions.waitForVisibilityOfElement;
+import static utilities.Action.waitForVisibilityOfElement;
 
 public abstract class BasePage {
 
@@ -29,7 +29,7 @@ public abstract class BasePage {
     @FindBy(css = "[title='Women'")
     protected WebElement womenTab;
 
-    /*  GOING TO TABS: WOMEN, DRESSES, T-SHIRTS, BLOG  */
+    /*  GO TO TAB: WOMEN, DRESSES, T-SHIRTS, BLOG  */
 
     @Step
     public Products goToWomenTab() {
@@ -37,7 +37,7 @@ public abstract class BasePage {
         return new Products();
     }
 
-    /*  SEARCHING PRODUCTS  */
+    /*  PRODUCT SEARCH  */
 
     private void enterTextInSearchInput(String searchPhrase) {
         searchInput.sendKeys(searchPhrase);

@@ -8,7 +8,7 @@ import java.time.Duration;
 
 import static config.WebDriverSingleton.getDriver;
 
-public abstract class Actions {
+public abstract class Action {
 
     private final static WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
 

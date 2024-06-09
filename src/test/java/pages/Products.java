@@ -2,6 +2,7 @@ package pages;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
@@ -55,7 +56,13 @@ public class Products extends BasePage {
     @FindBy(css = "[class='cat-name']")
     private WebElement categoryNameInHeading;
 
-    /*  SEARCHING PRODUCTS — POSITIVE TESTING  */
+    @FindBy(css = "[class='available-dif']")
+    private List<WebElement> availableProductsLabels;
+
+    @FindBy(css = "[style='display: block;'] > [class='button lnk_view btn btn-default']")
+    private WebElement moreButton;
+
+    /*  PRODUCT SEARCH — POSITIVE TESTING  */
 
     @Step
     public void userShouldSeeProductsGrid() {
@@ -97,7 +104,7 @@ public class Products extends BasePage {
         return new Products(searchPhrase);
     }
 
-    /*  SEARCHING PRODUCTS — NEGATIVE TESTING  */
+    /*  PRODUCT SEARCH — NEGATIVE TESTING  */
 
     @Step
     public void userShouldSeeNoResultsAlert() {
@@ -113,7 +120,17 @@ public class Products extends BasePage {
         Assert.assertEquals(noResultsAlert.getText(), "Please enter a search keyword");
     }
 
-    /*  GOING TO TABS: WOMEN, DRESSES, T-SHIRTS, BLOG  */
+    /*  ADD PRODUCT TO CART — POSITIVE TESTING  */
+
+    @Step
+    public ProductDetails goToProductDetails() {
+        Actions actions = new Actions(getDriver());
+        actions.moveToElement(availableProductsLabels.get(0)).perform();
+        actions.click(moreButton).perform();
+        return new ProductDetails();
+    }
+
+    /*  GO TO TAB: WOMEN, DRESSES, T-SHIRTS, BLOG  */
 
     @Step
     public void userShouldSeeProductsInWomenTab() {
