@@ -15,7 +15,24 @@ public class CartTest extends TestConfig {
                 .userShouldSeePopUpThatProductIsAddedToCart();
     }
 
-    // TODO: test of number of added products to cart
+    @Test
+    public void successfulAddManyProductsToCart_CorrectQuantityInPopUp() {
+        new Home()
+                .goToWomenTab()
+                .goToProductDetails()
+                .addManyProductsToCart()
+                .userShouldSeeCorrectQuantityInPopUp();
+    }
+
+    @Test
+    public void successfulAddManyProductsToCart_CorrectQuantityInCart() {
+        new Home()
+                .goToWomenTab()
+                .goToProductDetails()
+                .addManyProductsToCart()
+                .goToCartAfterAddProductToCart()
+                .userShouldSeeCorrectQuantityInCart();
+    }
 
     // TODO: test of removing products from cart
 

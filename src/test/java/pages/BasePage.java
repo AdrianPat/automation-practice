@@ -17,7 +17,7 @@ public abstract class BasePage {
         waitForVisibilityOfElement(pageContent);
     }
 
-    @FindBy(id = "columns")
+    @FindBy(id = "page") // id = "columns"
     private WebElement pageContent;
 
     @FindBy(id = "search_query_top")
@@ -28,6 +28,9 @@ public abstract class BasePage {
 
     @FindBy(css = "[title='Women'")
     protected WebElement womenTab;
+
+    @FindBy(css = "[title='View my shopping cart']")
+    protected WebElement cartButton;
 
     /*  GO TO TAB: WOMEN, DRESSES, T-SHIRTS, BLOG  */
 
@@ -57,5 +60,11 @@ public abstract class BasePage {
     public Products submitSearch(String searchPhrase) {
         submitByEnterOrClick(searchPhrase);
         return new Products(searchPhrase);
+    }
+
+    @Step
+    protected Cart goToCart() {
+        cartButton.click();
+        return new Cart();
     }
 }

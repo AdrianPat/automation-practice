@@ -7,6 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
 import java.util.List;
+import java.util.Random;
 
 import static config.WebDriverSingleton.getDriver;
 
@@ -125,7 +126,8 @@ public class Products extends BasePage {
     @Step
     public ProductDetails goToProductDetails() {
         Actions actions = new Actions(getDriver());
-        actions.moveToElement(availableProductsLabels.get(0)).perform();
+        actions.moveToElement(availableProductsLabels.get(
+                new Random().nextInt(availableProductsLabels.size()))).perform();
         actions.click(moreButton).perform();
         return new ProductDetails();
     }
