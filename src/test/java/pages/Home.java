@@ -16,7 +16,6 @@ public class Home extends BasePage {
     @Step
     public SignIn openSignInPage() {
         signInButton.click();
-        // captureFullPageScreenshot();
         return new SignIn();
     }
 }

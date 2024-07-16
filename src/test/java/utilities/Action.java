@@ -12,7 +12,11 @@ public abstract class Action {
 
     private final static WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
 
-    public static void waitForVisibilityOfElement(WebElement element) {
+    public static void waitForVisibility(WebElement element) {
         wait.until(ExpectedConditions.visibilityOf(element));
+    }
+
+    public static WebElement waitForClickable(WebElement element) {
+        return wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 }

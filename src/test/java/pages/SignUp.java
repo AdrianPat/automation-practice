@@ -14,7 +14,6 @@ import java.util.Random;
 
 import static utilities.AlertMessageContent.getAlertContent;
 import static utilities.Excel.saveNewUserIntoExcel;
-import static utilities.Screenshots.captureFullPageScreenshot;
 
 public class SignUp extends BasePage {
 
@@ -79,7 +78,6 @@ public class SignUp extends BasePage {
     public Profile submitRegistrationForm() {
         fillInRegistrationForm();
         saveNewUserIntoExcelFile();
-        captureFullPageScreenshot();
         String firstName = customerFirstNameInput.getAttribute("value");
         String lastName = customerLastNameInput.getAttribute("value");
         registrationButton.click();
@@ -115,7 +113,6 @@ public class SignUp extends BasePage {
     @Step
     public SignUp submitRegistrationFormWithInvalidData(String name, String lastName, String email, String password) {
         fillInRegistrationFormWithInvalidData(name, lastName, email, password);
-        captureFullPageScreenshot();
         registrationButton.click();
         return this;
     }
@@ -137,7 +134,6 @@ public class SignUp extends BasePage {
     @Step
     public SignUp submitRegistrationFormWithInvalidDate(String day, String month, String year) {
         fillInRegistrationFormWithInvalidDate(day, month, year);
-        captureFullPageScreenshot();
         registrationButton.click();
         return this;
     }

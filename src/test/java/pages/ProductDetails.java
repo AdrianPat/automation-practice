@@ -9,7 +9,7 @@ import org.testng.Assert;
 import java.util.List;
 import java.util.Random;
 
-import static utilities.Action.waitForVisibilityOfElement;
+import static utilities.Action.waitForVisibility;
 
 public class ProductDetails extends BasePage {
 
@@ -54,20 +54,23 @@ public class ProductDetails extends BasePage {
     @FindBy(css = "[title='Proceed to checkout']")
     private WebElement proceedToCheckoutButton;
 
+    @FindBy(css = "[title='Close window']")
+    private WebElement closeWindowButton;
+
     /*  ADD ONE PRODUCT TO CART (QUANTITY: 1)  */
 
     @Step
     public ProductDetails addToCart() {
         findAvailableProductVariant();
-        waitForVisibilityOfElement(addToCartButton);
-        // Add waiting for clickable?
+        waitForVisibility(addToCartButton);
         addToCartButton.click();
+        // waitForClickable(addToCartButton).click();
         return this;
     }
 
     @Step
     public void userShouldSeePopUpThatProductIsAddedToCart() {
-        waitForVisibilityOfElement(productAddedToCartPopUp);
+        waitForVisibility(productAddedToCartPopUp);
         String expected = "Product successfully added to your shopping cart";
         Assert.assertEquals(productAddedToCartPopUpHeader.getText(), expected);
     }
@@ -77,7 +80,7 @@ public class ProductDetails extends BasePage {
     @Step
     public ProductDetails addManyProductsToCart() {
         findAvailableProductVariant();
-        waitForVisibilityOfElement(quantityInput);
+        waitForVisibility(quantityInput);
         int quantity = new Random().nextInt(5) + 1;
         if (new Random().nextBoolean()) {
             quantityInput.clear();
@@ -88,13 +91,13 @@ public class ProductDetails extends BasePage {
             }
         }
         addToCartButton.click();
-        waitForVisibilityOfElement(productAddedToCartPopUp);
+        waitForVisibility(productAddedToCartPopUp);
         return new ProductDetails(quantity);
     }
 
     @Step
     public void userShouldSeeCorrectQuantityInPopUp() {
-        waitForVisibilityOfElement(productAddedToCartPopUp);
+        waitForVisibility(productAddedToCartPopUp);
         Assert.assertEquals(quantityInPopUp.getText(), String.valueOf(quantity));
     }
 
@@ -122,5 +125,12 @@ public class ProductDetails extends BasePage {
                 }
             }
         }
+    }
+
+    @Step
+    public Cart goToCartFromProductDetails() {
+        closeWindowButton.click();
+        cartButton.click();
+        return new Cart();
     }
 }

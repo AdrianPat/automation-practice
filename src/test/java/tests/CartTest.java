@@ -34,7 +34,16 @@ public class CartTest extends TestConfig {
                 .userShouldSeeCorrectQuantityInCart();
     }
 
-    // TODO: test of removing products from cart
+    @Test
+    public void successfulRemoveProductFromCart() {
+        new Home()
+                .goToWomenTab()
+                .goToProductDetails()
+                .addToCart()
+                .goToCartFromProductDetails()
+                .removeProductFromCart()
+                .userShouldSeeEmptyCart();
+    }
 
     // TODO: test of adding 2 different products
 }

@@ -8,16 +8,16 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.Random;
 
 import static config.WebDriverSingleton.getDriver;
-import static utilities.Action.waitForVisibilityOfElement;
+import static utilities.Action.waitForVisibility;
 
 public abstract class BasePage {
 
     protected BasePage() {
         PageFactory.initElements(getDriver(), this);
-        waitForVisibilityOfElement(pageContent);
+        waitForVisibility(pageContent);
     }
 
-    @FindBy(id = "page") // id = "columns"
+    @FindBy(id = "columns") // id = "page"
     private WebElement pageContent;
 
     @FindBy(id = "search_query_top")
@@ -48,7 +48,6 @@ public abstract class BasePage {
 
     protected void submitByEnterOrClick(String searchPhrase) {
         enterTextInSearchInput(searchPhrase);
-        // captureFullPageScreenshot();
         if (new Random().nextBoolean()) {
             submitSearchButton.click();
         } else {

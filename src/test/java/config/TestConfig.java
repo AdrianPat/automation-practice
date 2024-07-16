@@ -8,7 +8,6 @@ import java.time.Duration;
 
 import static config.WebDriverSingleton.driverQuit;
 import static config.WebDriverSingleton.getDriver;
-import static utilities.Screenshots.captureFullPageScreenshot;
 
 public abstract class TestConfig {
 
@@ -22,7 +21,7 @@ public abstract class TestConfig {
 
     @AfterMethod
     public void driverTearDown() {
-        captureFullPageScreenshot();
+        // captureFullPageScreenshot();
         driverQuit();
     }
 }

@@ -11,7 +11,6 @@ import java.util.List;
 
 import static utilities.AlertMessageContent.getAlertContent;
 import static utilities.Excel.getRandomUserFromExcel;
-import static utilities.Screenshots.captureFullPageScreenshot;
 
 public class SignIn extends BasePage {
 
@@ -57,7 +56,6 @@ public class SignIn extends BasePage {
     @Step
     public Profile submitSignIn() {
         String userName = fillInSignInForm();
-        captureFullPageScreenshot();
         signInButton.click();
         return new Profile(userName);
     }
@@ -72,7 +70,6 @@ public class SignIn extends BasePage {
     @Step
     public SignIn submitSignInWithInvalidData(String email, String password) {
         fillInSignInFormWithInvalidData(email, password);
-        captureFullPageScreenshot();
         signInButton.click();
         return new SignIn();
     }
@@ -92,7 +89,6 @@ public class SignIn extends BasePage {
     @Step
     public SignUp submitCreateAccountForm() {
         fillInCreateAccountForm(faker.getFakeEmail());
-        captureFullPageScreenshot();
         createAccountButton.click();
         return new SignUp();
     }
@@ -102,7 +98,6 @@ public class SignIn extends BasePage {
     @Step
     public SignIn submitCreateAccountFormWithInvalidEmail(String invalidEmail) {
         fillInCreateAccountForm(invalidEmail);
-        captureFullPageScreenshot();
         createAccountButton.click();
         return this;
     }
@@ -110,7 +105,6 @@ public class SignIn extends BasePage {
     @Step
     public SignIn submitCreateAccountFormWithTakenEmail() {
         fillInCreateAccountForm(getRandomUserFromExcel()[0]);
-        captureFullPageScreenshot();
         createAccountButton.click();
         return this;
     }
