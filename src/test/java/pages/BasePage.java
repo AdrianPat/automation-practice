@@ -60,10 +60,4 @@ public abstract class BasePage {
         submitByEnterOrClick(searchPhrase);
         return new Products(searchPhrase);
     }
-
-    @Step
-    protected Cart goToCart() {
-        cartButton.click();
-        return new Cart();
-    }
 }

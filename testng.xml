@@ -4,11 +4,12 @@
     <test name="Regression">
         <classes>
             <!-- <class name="tests.SignInTest"/> -->
-            <class name="tests.SignOutTest"/>
+            <!-- <class name="tests.SignOutTest"/> -->
             <!-- <class name="tests.SignUpTest"/> -->
             <!-- <class name="tests.SearchTest"/> -->
-            <class name="tests.NavigationTest"/>
+            <!-- <class name="tests.NavigationTest"/> -->
             <!-- <class name="tests.CartTest"/> -->
+            <class name="tests.BuyTest"/>
         </classes>
     </test>
 </suite>

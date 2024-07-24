@@ -46,4 +46,12 @@ public class CartTest extends TestConfig {
     }
 
     // TODO: test of adding 2 different products
+
+    /* @Test
+    public void successfulAddTwoDifferentProductsToCart() {
+        new Home()
+                .goToWomenTab()
+                .goToProductDetails()
+                .
+    } */
 }

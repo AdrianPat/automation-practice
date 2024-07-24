@@ -60,6 +60,14 @@ public class SignIn extends BasePage {
         return new Profile(userName);
     }
 
+    @Step
+    public Cart signInToOrder() {
+        emailInput.sendKeys("testowy_e-mail@test.pl");
+        passwordInput.sendKeys("Password123!");
+        signInButton.click();
+        return new Cart();
+    }
+
     /*  SIGN IN — NEGATIVE TESTING  */
 
     private void fillInSignInFormWithInvalidData(String email, String password) {

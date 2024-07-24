@@ -2,6 +2,7 @@ package pages;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
@@ -9,6 +10,7 @@ import org.testng.Assert;
 import java.util.List;
 import java.util.Random;
 
+import static config.WebDriverSingleton.getDriver;
 import static utilities.Action.waitForVisibility;
 
 public class ProductDetails extends BasePage {
@@ -54,7 +56,7 @@ public class ProductDetails extends BasePage {
     @FindBy(css = "[title='Proceed to checkout']")
     private WebElement proceedToCheckoutButton;
 
-    @FindBy(css = "[title='Close window']")
+    @FindBy(css = "[class='cross']")
     private WebElement closeWindowButton;
 
     /*  ADD ONE PRODUCT TO CART (QUANTITY: 1)  */
@@ -63,8 +65,9 @@ public class ProductDetails extends BasePage {
     public ProductDetails addToCart() {
         findAvailableProductVariant();
         waitForVisibility(addToCartButton);
-        addToCartButton.click();
-        // waitForClickable(addToCartButton).click();
+        Actions actions = new Actions(getDriver());
+        actions.moveToElement(addToCartButton).perform();
+        actions.click(addToCartButton).perform();
         return this;
     }
 
@@ -86,7 +89,7 @@ public class ProductDetails extends BasePage {
             quantityInput.clear();
             quantityInput.sendKeys(String.valueOf(quantity));
         } else {
-            for (int i = 0; i < quantity; i++) {
+            for (int i = 1; i < quantity; i++) {
                 plusButton.click();
             }
         }
@@ -103,11 +106,9 @@ public class ProductDetails extends BasePage {
 
     @Step
     public Cart goToCartAfterAddProductToCart() {
-        if (productAddedToCartPopUp.isDisplayed()) { // probably throws an exception
-            proceedToCheckoutButton.click();
-        } else {
-            cartButton.click();
-        }
+        waitForVisibility(productAddedToCartPopUp);
+        proceedToCheckoutButton.click();
+        cartButton.click();
         return new Cart(quantity);
     }
 
@@ -129,6 +130,7 @@ public class ProductDetails extends BasePage {
 
     @Step
     public Cart goToCartFromProductDetails() {
+        waitForVisibility(closeWindowButton);
         closeWindowButton.click();
         cartButton.click();
         return new Cart();
