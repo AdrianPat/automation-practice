@@ -4,4 +4,4 @@ src/test/java/
 - tests — test classes
 - utilities — additional classes/tools  
   
-- testData — folder with Excel files
+testData — folder with Excel files
